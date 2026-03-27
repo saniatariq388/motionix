@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# motionix
 
-## Getting Started
+> Icons that move with intent.
 
-First, run the development server:
+Animated React icon components with 4 motion variants per icon. Built with Framer Motion and Lucide React. Fully customizable and copy-paste ready.
+
+![MIT License](https://img.shields.io/badge/license-MIT-green)
+![npm version](https://img.shields.io/npm/v/motionix)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)
+
+---
+
+## Features
+
+- 10 animated icons out of the box
+- 4 motion variants per icon: Ease, Bounce, Float, Pop
+- Fully customizable: size, color, hover color, fill
+- Built with Framer Motion
+- TypeScript support
+- MIT Licensed — free for personal and commercial use
+
+---
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install motionix framer-motion lucide-react
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or with pnpm:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm add hover-icons framer-motion lucide-react
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+```tsx
+import { BellIcon, HeartIcon, StarIcon } from "motionix"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+export default function App() {
+  return (
+    <div>
+      {/* Default - ease variant */}
+      <BellIcon />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+      {/* Playful bounce */}
+      <HeartIcon variant="bounce" />
 
-## Deploy on Vercel
+      {/* Custom colors */}
+      <StarIcon
+        variant="pop"
+        size={32}
+        color="#888888"
+        hoverColor="#f59e0b"
+        fillOnHover={true}
+      />
+    </div>
+  )
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Available Icons
+
+| Icon       | Component      | Default Hover Color    |
+|------------|----------------|------------------------|
+| Bell       | BellIcon       | Blue #3b82f6           |
+| Heart      | HeartIcon      | Red #ef4444            |
+| Star       | StarIcon       | Yellow #eab308         |
+| Trash      | TrashIcon      | Red #ef4444            |
+| Search     | SearchIcon     | Indigo #6366f1         |
+| Sun        | SunMoonIcon    | Amber #f59e0b          |
+| Download   | DownloadIcon   | Green #10b981          |
+| Send       | SendIcon       | Indigo #6366f1         |
+| Loader     | LoaderIcon     | Indigo #6366f1         |
+| Bookmark   | BookmarkIcon   | Amber #f59e0b          |
+
+---
+
+## Props
+
+| Prop          | Type                      | Default        | Description              |
+|---------------|---------------------------|----------------|--------------------------|
+| variant       | ease/bounce/float/pop     | ease           | Animation style          |
+| size          | number                    | 24             | Icon size in px          |
+| color         | string                    | currentColor   | Stroke color             |
+| hoverColor    | string                    | per icon       | Color on hover           |
+| fillOnHover   | boolean                   | true           | Fill icon on hover       |
+| className     | string                    | undefined      | Custom class             |
+
+---
+
+## Motion Variants
+
+- **Ease** — Smooth and calm motion
+- **Bounce** — Spring and fun energy
+- **Float** — Gentle top to bottom bob
+- **Pop** — Appear and disappear effect
+
+---
+
+## Credits
+
+SVG icons based on [Lucide React](https://lucide.dev) (MIT License)
+
+Animations are original work by motionix.
+
+Built with:
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide React](https://lucide.dev)
+- [Next.js](https://nextjs.org)
+- [Tailwind CSS](https://tailwindcss.com)
+
+---
+
+## License
+
+MIT License — see LICENSE file for details.
+
+Free to use in personal and commercial projects.

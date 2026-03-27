@@ -1,0 +1,45 @@
+{
+  "name": "motionix",
+  "version": "1.0.0",
+  "description": "Animated React icons with 4 motion variants. Built with Framer Motion and Lucide React.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "react",
+    "icons",
+    "animated",
+    "framer-motion",
+    "lucide",
+    "hover",
+    "motion",
+    "typescript"
+  ],
+  "author": "motionix",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "framer-motion": ">=10",
+    "lucide-react": ">=0.300.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tsup": "^8.0.0",
+    "@types/react": "^18.0.0"
+  }
+}
