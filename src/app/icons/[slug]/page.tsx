@@ -83,6 +83,65 @@ export default function IconDetailPage() {
 
   const IconComponent = iconComponents[icon.component];
 
+  const handleHoverStart = async () => {
+    if (variant === "pop") {
+      await controls.start({
+        scale: 0,
+        opacity: 0,
+        transition: { duration: 0.35, ease: "easeIn" },
+      });
+      await new Promise((resolve) => setTimeout(resolve, 80));
+      await controls.start({
+        scale: [0, 1.25, 1],
+        opacity: [0, 1, 1],
+        transition: { duration: 0.45, ease: "easeOut", times: [0, 0.6, 1] },
+      });
+    } else if (variant === "ease" && icon.slug === "loader") {
+      // Loader ease variant - infinite rotation
+      controls.start({
+        rotate: 360,
+        transition: { duration: 1, repeat: Infinity, ease: "linear" },
+      });
+    } else if (variant === "ease") {
+      // Default ease animation for other icons
+      controls.start({
+        scale: 1.05,
+        transition: { duration: 0.3 },
+      });
+    } else if (variant === "bounce") {
+      // Trigger bounce animation
+      controls.start({
+        scale: [1, 1.15, 1],
+        transition: { duration: 0.4, ease: "easeInOut" },
+      });
+    } else if (variant === "float") {
+      // Trigger float animation  
+      controls.start({
+        y: [-10, 0],
+        transition: { duration: 0.6, ease: "easeInOut" },
+      });
+    }
+  };
+
+  const handleHoverEnd = async () => {
+    if (variant === "pop") {
+      await controls.start({
+        scale: 1,
+        opacity: 1,
+        transition: { duration: 0.2 },
+      });
+    } else if (variant === "ease" && icon.slug === "loader") {
+      controls.stop();
+      controls.set({ rotate: 0 });
+    } else {
+      controls.start({
+        scale: 1,
+        y: 0,
+        transition: { duration: 0.2 },
+      });
+    }
+  };
+
   const handleVariantClick = async (newVariant: MotionVariant) => {
     setVariant(newVariant);
     await controls.start({
@@ -188,9 +247,11 @@ export default function App() {
               margin: "0 auto",
             }}
           >
-            <motion.span
+            <motion.div
               animate={controls}
-              style={{ pointerEvents: "none" }}
+              onMouseEnter={handleHoverStart}
+              onMouseLeave={handleHoverEnd}
+              style={{ pointerEvents: "auto", cursor: "pointer", display: "inline-block" }}
             >
               <IconComponent
                 size={72}
@@ -199,7 +260,7 @@ export default function App() {
                 fillOnHover={fillOnHover}
                 variant={variant}
               />
-            </motion.span>
+            </motion.div>
             <span
               style={{
                 fontSize: "11px",
