@@ -29,6 +29,8 @@ const variantDescriptions: Record<MotionVariant, string> = {
   bounce: "Spring and fun energy",
   float: "Gentle top to bottom bob",
   pop: "Appear and disappear effect",
+  burst: "Copies shoot outward",
+  trail: "Copies float upward",
 };
 
 const iconComponents: Record<string, any> = {
@@ -115,12 +117,13 @@ export default function IconDetailPage() {
         transition: { duration: 0.4, ease: "easeInOut" },
       });
     } else if (variant === "float") {
-      // Trigger float animation  
+      // Trigger float animation
       controls.start({
         y: [-10, 0],
         transition: { duration: 0.6, ease: "easeInOut" },
       });
     }
+    // burst and trail variants are handled by IconCopies component
   };
 
   const handleHoverEnd = async () => {
@@ -329,8 +332,8 @@ export default function App() {
               >
                 Animation Style
               </span>
-              <div className="flex gap-2 mt-3">
-                {(["ease", "bounce", "float", "pop"] as MotionVariant[]).map((v) => (
+              <div className="flex gap-2 mt-3 flex-wrap">
+                {(["ease", "bounce", "float", "pop", "burst", "trail"] as MotionVariant[]).map((v) => (
                   <button
                     key={v}
                     onClick={() => handleVariantClick(v)}
@@ -705,7 +708,7 @@ export default function App() {
 
             {/* Rows */}
             {[
-              { prop: "variant", type: "ease/bounce/float/pop", default: "ease", desc: "Animation style" },
+              { prop: "variant", type: "ease/bounce/float/pop/burst/trail", default: "ease", desc: "Animation style" },
               { prop: "size", type: "number", default: "24", desc: "Icon size in px" },
               { prop: "color", type: "string", default: "currentColor", desc: "Stroke color" },
               { prop: "hoverColor", type: "string", default: "icon default", desc: "Color on hover" },

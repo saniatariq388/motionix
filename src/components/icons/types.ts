@@ -1,4 +1,4 @@
-export type MotionVariant = "ease" | "bounce" | "float" | "pop";
+export type MotionVariant = "ease" | "bounce" | "float" | "pop" | "burst" | "trail";
 
 export interface IconProps {
   size?: number;

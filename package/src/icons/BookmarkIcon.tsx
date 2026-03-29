@@ -1,7 +1,8 @@
 import { Bookmark } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
 import { IconProps, MotionVariant } from "./types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { IconCopies } from "./IconCopies";
 
 const MotionBookmark = motion(Bookmark);
 
@@ -46,17 +47,19 @@ export function BookmarkIcon({
   variant = "ease",
   className,
 }: IconProps) {
-  const variants = variant !== "pop" ? getVariants(variant) : undefined;
+  const [isHovered, setIsHovered] = useState(false);
+  const variants = variant !== "pop" && variant !== "burst" && variant !== "trail" ? getVariants(variant) : undefined;
   const controls = useAnimation();
 
   useEffect(() => {
-    if (variant !== "pop") {
+    if (variant !== "pop" && variant !== "burst" && variant !== "trail") {
       controls.stop();
       controls.set({ scale: 1, opacity: 1, y: 0, rotate: 0 });
     }
   }, [variant, controls]);
 
   const handleHoverStart = async () => {
+    setIsHovered(true);
     if (variant === "pop") {
       await controls.start({
         scale: 0,
@@ -77,6 +80,7 @@ export function BookmarkIcon({
   };
 
   const handleHoverEnd = async () => {
+    setIsHovered(false);
     if (variant === "pop") {
       await controls.start({
         scale: 1,
@@ -87,32 +91,35 @@ export function BookmarkIcon({
   };
 
   return (
-    <motion.span
-      variants={variants}
-      whileHover={variant !== "pop" ? "hover" : undefined}
-      animate={controls}
-      className={className}
-      onHoverStart={handleHoverStart}
-      onHoverEnd={handleHoverEnd}
-    >
-      <MotionBookmark
-        size={size}
-        stroke={color}
-        fill={fillOnHover ? hoverColor : "none"}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transition = "stroke 0.2s, fill 0.2s";
-          e.currentTarget.style.stroke = hoverColor;
-          if (fillOnHover) {
-            e.currentTarget.style.fill = hoverColor;
-          }
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.stroke = color;
-          if (fillOnHover) {
-            e.currentTarget.style.fill = "none";
-          }
-        }}
-      />
-    </motion.span>
+    <IconCopies variant={variant} isHovered={isHovered}>
+      <motion.span
+        variants={variants}
+        whileHover={variant !== "pop" && variant !== "burst" && variant !== "trail" ? "hover" : undefined}
+        animate={controls}
+        className={className}
+        onHoverStart={handleHoverStart}
+        onHoverEnd={handleHoverEnd}
+        style={{ display: "inline-block" }}
+      >
+        <MotionBookmark
+          size={size}
+          stroke={isHovered && (variant === "burst" || variant === "trail") ? hoverColor : color}
+          fill={fillOnHover && isHovered && (variant === "burst" || variant === "trail") ? hoverColor : (fillOnHover ? hoverColor : "none")}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transition = "stroke 0.2s, fill 0.2s";
+            e.currentTarget.style.stroke = hoverColor;
+            if (fillOnHover) {
+              e.currentTarget.style.fill = hoverColor;
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.stroke = color;
+            if (fillOnHover) {
+              e.currentTarget.style.fill = "none";
+            }
+          }}
+        />
+      </motion.span>
+    </IconCopies>
   );
 }

@@ -53,11 +53,183 @@ export default function Home() {
 
   return (
     <div className="grid-bg min-h-screen">
+      <style>{`
+        /* Navbar Responsive */
+        .navbar {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+        .navbar .max-w-7xl {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+        @media (max-width: 768px) {
+          .navbar {
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+          .navbar .max-w-7xl {
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .nav-links {
+            gap: 12px !important;
+          }
+          .nav-link {
+            font-size: 13px !important;
+          }
+          .github-btn {
+            display: none !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .navbar {
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+          .nav-logo {
+            font-size: 16px !important;
+          }
+        }
+        
+        /* Max width container responsive */
+        .max-w-7xl {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+        @media (max-width: 768px) {
+          .max-w-7xl {
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+        }
+        @media (max-width: 480px) {
+          .max-w-7xl {
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+        }
+        
+        /* Responsive Hero Styles */
+        @media (max-width: 768px) {
+          .hero-section {
+            padding-top: 100px !important;
+            padding-bottom: 60px !important;
+          }
+          .hero-heading {
+            font-size: clamp(32px, 8vw, 48px) !important;
+          }
+          .hero-subtext {
+            font-size: 16px !important;
+          }
+          .hero-buttons {
+            flex-direction: column !important;
+            gap: 12px !important;
+          }
+          .hero-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .stats-bar {
+            gap: 24px !important;
+          }
+          .stat-item {
+            gap: 16px !important;
+          }
+          .floating-icon {
+            opacity: 0.5 !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .hero-section {
+            padding-top: 80px !important;
+            padding-bottom: 40px !important;
+          }
+          .hero-heading {
+            font-size: clamp(28px, 10vw, 36px) !important;
+          }
+          .hero-subtext {
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+          }
+          .badge-container {
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+          }
+          .badge {
+            font-size: 10px !important;
+            padding: 3px 10px !important;
+          }
+          .stats-bar {
+            gap: 16px !important;
+          }
+          .stat-value {
+            font-size: 16px !important;
+          }
+          .stat-label {
+            font-size: 10px !important;
+          }
+        }
+        
+        /* Built With Strip Responsive */
+        @media (max-width: 768px) {
+          .built-with-strip {
+            padding: 20px 16px !important;
+          }
+          .built-with-links {
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+            justify-content: center !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .built-with-links a {
+            font-size: 12px !important;
+          }
+        }
+        
+        /* Playground Section Responsive */
+        @media (max-width: 768px) {
+          .playground-section {
+            padding: 40px 16px !important;
+          }
+          .playground-title {
+            font-size: 28px !important;
+          }
+          .playground-subtitle {
+            font-size: 14px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .playground-section {
+            padding: 30px 12px !important;
+          }
+          .playground-title {
+            font-size: 24px !important;
+          }
+        }
+        
+        /* Footer Responsive */
+        @media (max-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+          .footer-bottom {
+            flex-direction: column !important;
+            gap: 12px !important;
+            text-align: center !important;
+          }
+        }
+      `}</style>
       {/* Fixed Navbar */}
-      <nav className="fixed top-0 left-0 right-0 h-14 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border-color)] z-50">
+      <nav className="navbar fixed top-0 left-0 right-0 h-14 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border-color)] z-50">
         <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
           <span
-            className="gradient-text"
+            className="nav-logo gradient-text"
             style={{
               fontSize: "18px",
               fontWeight: 800,
@@ -67,16 +239,16 @@ export default function Home() {
           </span>
 
           {/* Center Nav Links */}
-          <div className="flex items-center gap-6">
+          <div className="nav-links flex items-center gap-6">
             <button
               onClick={scrollToPlayground}
-              className="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+              className="nav-link text-sm font-medium text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
             >
               Icons
             </button>
             <button
               onClick={scrollToFooter}
-              className="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+              className="nav-link text-sm font-medium text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
             >
               License
             </button>
@@ -88,7 +260,7 @@ export default function Home() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--border-color)] text-[var(--foreground)] hover:border-[var(--indigo)] transition-colors"
+              className="github-btn flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--border-color)] text-[var(--foreground)] hover:border-[var(--indigo)] transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -101,7 +273,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section
-        className="relative overflow-hidden"
+        className="hero-section relative overflow-hidden"
         style={{
           paddingTop: "140px",
           paddingBottom: "100px",
@@ -127,6 +299,7 @@ export default function Home() {
         {floatingIcons.map(({ IconComponent, position, delay, duration }, index) => (
           <motion.div
             key={index}
+            className="floating-icon"
             style={{
               position: "absolute",
               ...position,
@@ -154,12 +327,12 @@ export default function Home() {
           animate="show"
         >
           {/* Badges */}
-          <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--indigo)] text-xs text-[var(--text-muted)]">
+          <motion.div variants={itemVariants} className="badge-container flex items-center justify-center gap-3 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--indigo)] text-xs text-[var(--text-muted)] badge">
               <span className="w-2 h-2 rounded-full bg-[var(--indigo)]" />
               Open Source Icon Library
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#10b981] text-xs text-[var(--text-muted)]">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#10b981] text-xs text-[var(--text-muted)] badge">
               <span className="w-2 h-2 rounded-full bg-[#10b981]" />
               MIT License
             </div>
@@ -167,6 +340,7 @@ export default function Home() {
 
           {/* Heading */}
           <div
+            className="hero-heading"
             style={{
               fontSize: "clamp(42px, 6vw, 72px)",
               fontWeight: 800,
@@ -191,6 +365,7 @@ export default function Home() {
 
           {/* Subtext */}
           <div
+            className="hero-subtext"
             style={{
               fontSize: "18px",
               lineHeight: 1.6,
@@ -200,15 +375,15 @@ export default function Home() {
               variants={itemVariants}
               className="text-[var(--text-muted)] max-w-xl mx-auto mb-10"
             >
-              3 motion variants per icon. Fully customizable. Copy paste ready.
+              6 motion variants per icon. Fully customizable. Copy paste ready.
             </motion.p>
           </div>
 
           {/* Buttons */}
-          <motion.div variants={itemVariants} className="flex items-center justify-center gap-3">
+          <motion.div variants={itemVariants} className="hero-buttons flex items-center justify-center gap-3">
             <a
               href="#playground"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-[var(--indigo)] text-white font-medium hover:bg-[var(--indigo-hover)] transition-colors"
+              className="hero-btn inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-[var(--indigo)] text-white font-medium hover:bg-[var(--indigo-hover)] transition-colors"
             >
               Browse Icons
               <ArrowRight className="w-4 h-4" />
@@ -217,7 +392,7 @@ export default function Home() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-[var(--border-color)] text-[var(--foreground)] hover:border-[var(--indigo)] transition-colors"
+              className="hero-btn inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-[var(--border-color)] text-[var(--foreground)] hover:border-[var(--indigo)] transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -229,22 +404,22 @@ export default function Home() {
           {/* Stats Bar */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center justify-center mt-10"
+            className="stats-bar flex items-center justify-center mt-10"
           >
-            <div className="flex items-center gap-8">
+            <div className="stat-item flex items-center gap-8">
               <div className="flex flex-col items-center">
-                <span className="gradient-text" style={{ fontSize: "20px", fontWeight: 800 }}>10</span>
-                <span className="text-[var(--text-muted)]" style={{ fontSize: "12px", fontWeight: 500 }}>Icons</span>
+                <span className="gradient-text stat-value" style={{ fontSize: "20px", fontWeight: 800 }}>100</span>
+                <span className="text-[var(--text-muted)] stat-label" style={{ fontSize: "12px", fontWeight: 500 }}>Icons</span>
               </div>
               <div style={{ width: "1px", height: "32px", background: "var(--border-color)" }} />
               <div className="flex flex-col items-center">
-                <span className="gradient-text" style={{ fontSize: "20px", fontWeight: 800 }}>4</span>
-                <span className="text-[var(--text-muted)]" style={{ fontSize: "12px", fontWeight: 500 }}>Variants</span>
+                <span className="gradient-text stat-value" style={{ fontSize: "20px", fontWeight: 800 }}>6</span>
+                <span className="text-[var(--text-muted)] stat-label" style={{ fontSize: "12px", fontWeight: 500 }}>Variants</span>
               </div>
               <div style={{ width: "1px", height: "32px", background: "var(--border-color)" }} />
               <div className="flex flex-col items-center">
-                <span className="gradient-text" style={{ fontSize: "20px", fontWeight: 800 }}>MIT</span>
-                <span className="text-[var(--text-muted)]" style={{ fontSize: "12px", fontWeight: 500 }}>License</span>
+                <span className="gradient-text stat-value" style={{ fontSize: "20px", fontWeight: 800 }}>MIT</span>
+                <span className="text-[var(--text-muted)] stat-label" style={{ fontSize: "12px", fontWeight: 500 }}>License</span>
               </div>
             </div>
           </motion.div>
@@ -253,6 +428,7 @@ export default function Home() {
 
       {/* Built With Strip */}
       <section
+        className="built-with-strip"
         style={{
           borderTop: "1px solid var(--border-color)",
           borderBottom: "1px solid var(--border-color)",
@@ -272,7 +448,7 @@ export default function Home() {
           >
             BUILT WITH
           </span>
-          <div className="flex items-center gap-10">
+          <div className="built-with-links flex items-center gap-10">
             <a
               href="https://nextjs.org"
               target="_blank"
@@ -327,11 +503,11 @@ export default function Home() {
       </section>
 
       {/* Playground Section */}
-      <section id="playground" ref={playgroundRef} className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="playground" ref={playgroundRef} className="playground-section py-20 px-6">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-12">
             <h2
-              className="gradient-text"
+              className="playground-title gradient-text"
               style={{
                 fontSize: "40px",
                 fontWeight: 800,
@@ -342,6 +518,7 @@ export default function Home() {
               Interactive Playground
             </h2>
             <p
+              className="playground-subtitle"
               style={{
                 fontSize: "16px",
                 fontWeight: 500,
@@ -365,7 +542,7 @@ export default function Home() {
         }}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="footer-grid grid grid-cols-1 md:grid-cols-3 gap-10">
             {/* Column 1 - Brand */}
             <div>
               <span
@@ -523,7 +700,7 @@ export default function Home() {
 
           {/* Bottom Bar */}
           <div
-            className="mt-10 pt-6"
+            className="footer-bottom mt-10 pt-6"
             style={{
               borderTop: "1px solid var(--border-color)",
               display: "flex",
