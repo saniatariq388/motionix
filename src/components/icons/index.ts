@@ -131,5 +131,4 @@ export { PowerIcon } from "./PowerIcon";
 export { CpuIcon } from "./CpuIcon";
 
 // Utilities
-export { IconCopies } from "./IconCopies";
 export type { MotionVariant, IconProps } from "./types";

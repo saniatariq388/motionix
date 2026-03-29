@@ -28,12 +28,12 @@ export default function Home() {
   };
 
   const floatingIcons = [
-    { IconComponent: Bell, position: { top: "10%", left: "5%" }, delay: 0, duration: 3 },
-    { IconComponent: Heart, position: { top: "15%", right: "8%" }, delay: 0.5, duration: 4 },
-    { IconComponent: Star, position: { top: "40%", left: "3%" }, delay: 1, duration: 3.5 },
-    { IconComponent: Download, position: { top: "45%", right: "5%" }, delay: 1.5, duration: 4.5 },
-    { IconComponent: Send, position: { top: "70%", left: "6%" }, delay: 2, duration: 3.2 },
-    { IconComponent: Bookmark, position: { top: "75%", right: "10%" }, delay: 2.5, duration: 4.2 },
+    { IconComponent: Bell, position: { top: "15%", left: "5%" }, delay: 0, duration: 3.5 },
+    { IconComponent: Heart, position: { top: "20%", right: "6%" }, delay: 0.5, duration: 4 },
+    { IconComponent: Star, position: { top: "55%", left: "3%" }, delay: 1, duration: 3 },
+    { IconComponent: Download, position: { top: "60%", right: "4%" }, delay: 1.5, duration: 4.5 },
+    { IconComponent: Send, position: { top: "38%", left: "8%" }, delay: 0.8, duration: 3.8 },
+    { IconComponent: Bookmark, position: { top: "35%", right: "8%" }, delay: 1.2, duration: 4.2 },
   ] as Array<{ IconComponent: LucideIcon; position: Record<string, string>; delay: number; duration: number }>;
 
   const scrollToPlayground = () => {
@@ -53,178 +53,6 @@ export default function Home() {
 
   return (
     <div className="grid-bg min-h-screen">
-      <style>{`
-        /* Navbar Responsive */
-        .navbar {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-        .navbar .max-w-7xl {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-        @media (max-width: 768px) {
-          .navbar {
-            padding-left: 16px;
-            padding-right: 16px;
-          }
-          .navbar .max-w-7xl {
-            padding-left: 0;
-            padding-right: 0;
-          }
-          .nav-links {
-            gap: 12px !important;
-          }
-          .nav-link {
-            font-size: 13px !important;
-          }
-          .github-btn {
-            display: none !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .navbar {
-            padding-left: 12px;
-            padding-right: 12px;
-          }
-          .nav-logo {
-            font-size: 16px !important;
-          }
-        }
-        
-        /* Max width container responsive */
-        .max-w-7xl {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-        @media (max-width: 768px) {
-          .max-w-7xl {
-            padding-left: 16px;
-            padding-right: 16px;
-          }
-        }
-        @media (max-width: 480px) {
-          .max-w-7xl {
-            padding-left: 12px;
-            padding-right: 12px;
-          }
-        }
-        
-        /* Responsive Hero Styles */
-        @media (max-width: 768px) {
-          .hero-section {
-            padding-top: 100px !important;
-            padding-bottom: 60px !important;
-          }
-          .hero-heading {
-            font-size: clamp(32px, 8vw, 48px) !important;
-          }
-          .hero-subtext {
-            font-size: 16px !important;
-          }
-          .hero-buttons {
-            flex-direction: column !important;
-            gap: 12px !important;
-          }
-          .hero-btn {
-            width: 100% !important;
-            justify-content: center !important;
-          }
-          .stats-bar {
-            gap: 24px !important;
-          }
-          .stat-item {
-            gap: 16px !important;
-          }
-          .floating-icon {
-            opacity: 0.5 !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .hero-section {
-            padding-top: 80px !important;
-            padding-bottom: 40px !important;
-          }
-          .hero-heading {
-            font-size: clamp(28px, 10vw, 36px) !important;
-          }
-          .hero-subtext {
-            font-size: 14px !important;
-            line-height: 1.5 !important;
-          }
-          .badge-container {
-            flex-wrap: wrap !important;
-            gap: 8px !important;
-          }
-          .badge {
-            font-size: 10px !important;
-            padding: 3px 10px !important;
-          }
-          .stats-bar {
-            gap: 16px !important;
-          }
-          .stat-value {
-            font-size: 16px !important;
-          }
-          .stat-label {
-            font-size: 10px !important;
-          }
-        }
-        
-        /* Built With Strip Responsive */
-        @media (max-width: 768px) {
-          .built-with-strip {
-            padding: 20px 16px !important;
-          }
-          .built-with-links {
-            flex-wrap: wrap !important;
-            gap: 16px !important;
-            justify-content: center !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .built-with-links a {
-            font-size: 12px !important;
-          }
-        }
-        
-        /* Playground Section Responsive */
-        @media (max-width: 768px) {
-          .playground-section {
-            padding: 40px 16px !important;
-          }
-          .playground-title {
-            font-size: 28px !important;
-          }
-          .playground-subtitle {
-            font-size: 14px !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .playground-section {
-            padding: 30px 12px !important;
-          }
-          .playground-title {
-            font-size: 24px !important;
-          }
-        }
-        
-        /* Footer Responsive */
-        @media (max-width: 768px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-          }
-          .footer-bottom {
-            flex-direction: column !important;
-            gap: 12px !important;
-            text-align: center !important;
-          }
-        }
-      `}</style>
       {/* Fixed Navbar */}
       <nav className="navbar fixed top-0 left-0 right-0 h-14 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border-color)] z-50">
         <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
@@ -275,9 +103,13 @@ export default function Home() {
       <section
         className="hero-section relative overflow-hidden"
         style={{
-          paddingTop: "140px",
-          paddingBottom: "100px",
+          minHeight: "85vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           textAlign: "center",
+          padding: "140px 40px 100px",
         }}
       >
         {/* Radial Glow */}
@@ -285,40 +117,71 @@ export default function Home() {
           style={{
             position: "absolute",
             pointerEvents: "none",
-            background: "radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, transparent 70%)",
-            width: "600px",
-            height: "400px",
+            background: "radial-gradient(ellipse at center, rgba(99,102,241,0.2) 0%, rgba(168,85,247,0.1) 40%, transparent 70%)",
+            width: "700px",
+            height: "500px",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             zIndex: 0,
           }}
+          className="dark-glow"
+        />
+        <div
+          style={{
+            position: "absolute",
+            pointerEvents: "none",
+            background: "radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 70%)",
+            width: "700px",
+            height: "500px",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 0,
+          }}
+          className="light-glow"
         />
 
-        {/* Floating Background Icons */}
-        {floatingIcons.map(({ IconComponent, position, delay, duration }, index) => (
-          <motion.div
-            key={index}
-            className="floating-icon"
-            style={{
-              position: "absolute",
-              ...position,
-              zIndex: 1,
-              pointerEvents: "none",
-            } as React.CSSProperties}
-            animate={{
-              y: [0, -12, 0],
-            }}
-            transition={{
-              duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay,
-            }}
-          >
-            <IconComponent size={28} strokeWidth={1.5} style={{ color: "rgba(99,102,241,0.15)" }} />
-          </motion.div>
-        ))}
+        {/* Floating Background Icons Container */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            pointerEvents: "none",
+            zIndex: 0,
+            overflow: "hidden",
+          }}
+        >
+          {floatingIcons.map(({ IconComponent, position, delay, duration }, index) => (
+            <motion.div
+              key={index}
+              className="floating-icon"
+              style={{
+                position: "absolute",
+                ...position,
+                pointerEvents: "none",
+                color: "rgba(255,255,255,0.12)",
+              } as React.CSSProperties}
+              animate={{
+                y: [0, -14, 0],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay,
+              }}
+            >
+              <IconComponent
+                size={36}
+                strokeWidth={1.5}
+              />
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div
           className="max-w-4xl mx-auto relative z-10"
@@ -380,24 +243,97 @@ export default function Home() {
           </div>
 
           {/* Buttons */}
-          <motion.div variants={itemVariants} className="hero-buttons flex items-center justify-center gap-3">
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "stretch",
+              width: "100%",
+              maxWidth: "480px",
+              margin: "32px auto 0",
+              padding: "0 20px",
+              boxSizing: "border-box",
+              flexWrap: "nowrap",
+            }}
+          >
             <a
               href="#playground"
-              className="hero-btn inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-[var(--indigo)] text-white font-medium hover:bg-[var(--indigo-hover)] transition-colors"
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                backgroundColor: "#6366f1",
+                color: "#ffffff",
+                padding: "14px 20px",
+                borderRadius: "10px",
+                fontSize: "14px",
+                fontWeight: "700",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+                whiteSpace: "nowrap",
+                minWidth: "0",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#4f46e5";
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(99,102,241,0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#6366f1";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
               Browse Icons
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight size={15} />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/YOUR_USERNAME/motionix"
               target="_blank"
               rel="noopener noreferrer"
-              className="hero-btn inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-[var(--border-color)] text-[var(--foreground)] hover:border-[var(--indigo)] transition-colors"
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                backgroundColor: "transparent",
+                color: "var(--foreground)",
+                padding: "14px 20px",
+                borderRadius: "10px",
+                fontSize: "14px",
+                fontWeight: "600",
+                border: "1.5px solid var(--border-color)",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+                whiteSpace: "nowrap",
+                minWidth: "0",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#6366f1";
+                e.currentTarget.style.color = "#6366f1";
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.backgroundColor = "rgba(99,102,241,0.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--border-color)";
+                e.currentTarget.style.color = "var(--foreground)";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" style={{ width: "15px", height: "15px" }}>
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
-              View on GitHub
+              GitHub
             </a>
           </motion.div>
 

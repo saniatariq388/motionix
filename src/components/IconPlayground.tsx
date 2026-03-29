@@ -312,329 +312,14 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
   }, []);
 
   return (
-    <>
-      {/* Main Layout Styles */}
-      <style>{`
-        .playground-wrapper {
-          display: grid;
-          grid-template-columns: 380px 1fr;
-          gap: 24px;
-          align-items: start;
-          width: 100%;
-        }
-        .controls-panel {
-          background: var(--controls-bg);
-          border: 1px solid var(--border-color);
-          border-radius: 16px;
-          padding: 24px;
-          box-shadow: var(--shadow);
-          position: sticky;
-          top: 80px;
-          width: 380px;
-          flex-shrink: 0;
-          max-height: calc(100vh - 100px);
-          overflow-y: auto;
-        }
-        .icons-section {
-          width: 100%;
-        }
-        .search-box {
-          width: 100%;
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
-          border-radius: 10px;
-          padding: 12px 16px;
-          padding-left: 44px;
-          font-size: 14px;
-          color: var(--foreground);
-          outline: none;
-          transition: border-color 0.15s;
-        }
-        .search-box:focus {
-          border-color: #6366f1;
-        }
-        .search-box::placeholder {
-          color: var(--text-muted);
-        }
-        .search-wrapper {
-          position: relative;
-          margin-bottom: 8px;
-        }
-        .search-icon {
-          position: absolute;
-          left: 14px;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 16px;
-          height: 16px;
-          color: var(--text-muted);
-          pointer-events: none;
-        }
-        .results-count {
-          font-size: 12px;
-          color: var(--text-muted);
-          margin-bottom: 16px;
-        }
-        .category-scroll {
-          display: flex;
-          gap: 8px;
-          overflow-x: auto;
-          margin-bottom: 24px;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-          padding-bottom: 4px;
-        }
-        .category-scroll::-webkit-scrollbar {
-          display: none;
-        }
-        .category-pill {
-          padding: 6px 16px;
-          border-radius: 999px;
-          font-size: 12px;
-          font-weight: 600;
-          white-space: nowrap;
-          cursor: pointer;
-          transition: all 0.15s;
-          border: 1px solid var(--border-color);
-          background: transparent;
-          color: var(--text-muted);
-        }
-        .category-pill.selected {
-          background: #6366f1;
-          color: #ffffff;
-          border-color: #6366f1;
-        }
-        .category-pill:hover:not(.selected) {
-          border-color: #6366f1;
-          color: var(--foreground);
-        }
-        .icons-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 12px;
-          width: 100%;
-        }
-        .icon-card {
-          min-height: 140px;
-          max-height: 160px;
-          padding: 24px 12px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
-          border-radius: 16px;
-          box-shadow: var(--shadow);
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .icon-card:hover {
-          border: 1px solid #6366f1;
-          box-shadow: 0 0 24px rgba(99,102,241,0.2);
-          background: var(--card-hover-bg);
-        }
-        .empty-state {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 80px 24px;
-          text-align: center;
-        }
-        .empty-state-icon {
-          width: 64px;
-          height: 64px;
-          border-radius: 16px;
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 16px;
-        }
-        .empty-state-title {
-          font-size: 16px;
-          font-weight: 600;
-          color: var(--foreground);
-          margin-bottom: 8px;
-        }
-        .empty-state-text {
-          font-size: 14px;
-          color: var(--text-muted);
-        }
-        .section-divider {
-          border-bottom: 1px solid var(--border-color);
-          padding-bottom: 20px;
-          margin-bottom: 20px;
-        }
-        .section-divider:last-child {
-          border-bottom: none;
-          padding-bottom: 0;
-          margin-bottom: 0;
-        }
-        
-        /* Tablet: 768px - 1024px */
-        @media (max-width: 1024px) {
-          .playground-wrapper {
-            grid-template-columns: 320px 1fr;
-          }
-          .controls-panel {
-            width: 320px;
-            padding: 20px;
-          }
-          .icons-grid {
-            grid-template-columns: repeat(4, 1fr);
-          }
-        }
-        
-        /* Mobile Landscape / Small Tablet: 600px - 768px */
-        @media (max-width: 768px) {
-          .playground-wrapper {
-            grid-template-columns: 1fr;
-            gap: 16px;
-          }
-          .controls-panel {
-            width: 100%;
-            position: static;
-            padding: 20px;
-          }
-          .icons-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-          }
-          .icon-card {
-            min-height: 120px;
-            max-height: 140px;
-            padding: 16px 8px;
-          }
-        }
-        
-        /* Mobile Portrait: 480px - 600px */
-        @media (max-width: 600px) {
-          .controls-panel {
-            padding: 16px;
-          }
-          .icons-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-          }
-          .icon-card {
-            min-height: 130px;
-            max-height: 150px;
-            padding: 20px 10px;
-          }
-          .category-pill {
-            padding: 6px 12px;
-            font-size: 11px;
-          }
-        }
-        
-        /* Small Mobile: < 480px */
-        @media (max-width: 480px) {
-          .controls-panel {
-            padding: 14px;
-            max-height: none;
-            position: static;
-          }
-          .search-box {
-            padding: 10px 14px;
-            padding-left: 40px;
-            font-size: 13px;
-          }
-          .search-icon {
-            left: 12px;
-            width: 14px;
-            height: 14px;
-          }
-          .icons-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-          }
-          .icon-card {
-            min-height: 110px;
-            max-height: 130px;
-            padding: 16px 8px;
-            border-radius: 12px;
-          }
-          .icon-card span {
-            font-size: 11px;
-          }
-          .category-pill {
-            padding: 5px 10px;
-            font-size: 10px;
-          }
-          .variant-btn {
-            padding: 6px 12px;
-            font-size: 11px;
-          }
-          .control-label {
-            font-size: 10px !important;
-          }
-          .control-value {
-            font-size: 12px !important;
-          }
-          .color-picker-btn {
-            padding: 8px !important;
-          }
-          .toggle-label {
-            font-size: 12px !important;
-          }
-        }
-        
-        /* Touch-friendly improvements */
-        @media (max-width: 768px) {
-          button, a {
-            min-height: 44px;
-          }
-          .category-pill {
-            min-height: 32px;
-          }
-          .variant-btn {
-            min-height: 36px;
-          }
-        }
-        
-        /* Smooth scrolling */
-        html {
-          scroll-behavior: smooth;
-        }
-        
-        /* Prevent horizontal scroll */
-        body {
-          overflow-x: hidden;
-        }
-      `}</style>
-
-      <div className="playground-wrapper">
+    <div className="playground-layout">
         {/* Left Controls Panel */}
         <div className="controls-panel">
           {/* Size Control */}
           <div className="section-divider">
             <div className="flex items-center justify-between mb-3">
-              <span
-                className="control-label"
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
-                  color: "var(--text-muted)",
-                  textTransform: "uppercase",
-                }}
-              >
-                SIZE
-              </span>
-              <span
-                className="control-value"
-                style={{
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "#6366f1",
-                }}
-              >
-                {size}px
-              </span>
+              <span className="control-label">SIZE</span>
+              <span className="control-value">{size}px</span>
             </div>
             <input
               type="range"
@@ -647,24 +332,13 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
 
           {/* Color Controls */}
           <div className="section-divider">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="color-pickers-row">
               {/* Stroke Color */}
-              <div>
-                <span
-                  className="block mb-2 control-label"
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    color: "var(--text-muted)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  STROKE COLOR
-                </span>
+              <div className="color-picker-item">
+                <span className="block mb-2 control-label">STROKE COLOR</span>
                 <button
                   onClick={() => document.getElementById("stroke-color")?.click()}
-                  className="color-picker-btn w-full flex items-center gap-3 p-2 rounded-lg border border-[var(--border-color)] hover:border-[var(--indigo)] transition-colors"
+                  className="color-picker-btn"
                 >
                   <div
                     className="rounded-lg border border-[var(--border-color)]"
@@ -691,22 +365,11 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
               </div>
 
               {/* Hover Color */}
-              <div>
-                <span
-                  className="block mb-2 control-label"
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    color: "var(--text-muted)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  HOVER COLOR
-                </span>
+              <div className="color-picker-item">
+                <span className="block mb-2 control-label">HOVER COLOR</span>
                 <button
                   onClick={() => document.getElementById("hover-color")?.click()}
-                  className="color-picker-btn w-full flex items-center gap-3 p-2 rounded-lg border border-[var(--border-color)] hover:border-[var(--indigo)] transition-colors"
+                  className="color-picker-btn"
                 >
                   <div
                     className="rounded-lg border border-[var(--border-color)]"
@@ -736,16 +399,7 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
 
           {/* Fill Toggle */}
           <div className="section-divider">
-            <span
-              className="block mb-3 toggle-label"
-              style={{
-                fontSize: "13px",
-                fontWeight: 600,
-                color: "var(--foreground)",
-              }}
-            >
-              FILL ON HOVER
-            </span>
+            <span className="block mb-3 toggle-label">FILL ON HOVER</span>
             <div
               onClick={() => setFillOnHover(!fillOnHover)}
               style={{
@@ -777,45 +431,17 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
 
           {/* Animation Style */}
           <div className="section-divider">
-            <span
-              className="block mb-3"
-              style={{
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                color: "var(--text-muted)",
-                textTransform: "uppercase",
-              }}
-            >
-              ANIMATION STYLE
-            </span>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "8px",
-                width: "100%",
-                marginBottom: "10px",
-              }}
-            >
+            <span className="block mb-3 control-label">ANIMATION STYLE</span>
+            <div className="variant-pills">
               {variants.map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setVariant(v.id)}
-                  className="variant-btn"
+                  className={`variant-pill${variant === v.id ? " selected" : ""}`}
                   style={{
-                    flex: "none",
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    textAlign: "center",
-                    cursor: "pointer",
                     backgroundColor: variant === v.id ? "#6366f1" : "transparent",
                     color: variant === v.id ? "#ffffff" : "var(--text-muted)",
                     border: `1px solid ${variant === v.id ? "#6366f1" : "var(--border-color)"}`,
-                    transition: "all 0.15s ease",
-                    width: "auto",
                   }}
                   onMouseEnter={(e) => {
                     if (variant !== v.id) {
@@ -850,7 +476,7 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
         </div>
 
         {/* Right Icons Section */}
-        <div className="icons-section">
+        <div className="icons-section" style={{ minWidth: 0, width: "100%", overflow: "hidden" }}>
           {/* Search Box */}
           <div className="search-wrapper">
             <Search className="search-icon" />
@@ -895,7 +521,7 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
                     key={icon.slug}
                     href={`/icons/${icon.slug}`}
                     className="icon-card"
-                    style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none" }}
+                    style={{ textDecoration: "none" }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = "#6366f1";
                       e.currentTarget.style.boxShadow = "0 0 24px rgba(99,102,241,0.2)";
@@ -948,7 +574,16 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
                     />
                     <IconComponent {...iconProps} />
                     <span
-                      style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-muted)", marginTop: "4px" }}
+                      style={{ 
+                        fontSize: "12px", 
+                        fontWeight: 600, 
+                        color: "var(--text-muted)", 
+                        marginTop: "4px",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "100%",
+                      }}
                     >
                       {icon.name}
                     </span>
@@ -967,6 +602,5 @@ export function IconPlayground({ onCopy, copiedIcon }: IconPlaygroundProps) {
           )}
         </div>
       </div>
-    </>
   );
 }

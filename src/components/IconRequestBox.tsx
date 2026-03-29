@@ -15,7 +15,8 @@ interface Request {
 }
 
 function timeAgo(dateString: string): string {
-  const date = new Date(dateString);
+  // Parse the date string and ensure it's treated as UTC if it's from Supabase
+  const date = new Date(dateString.endsWith('Z') ? dateString : dateString + 'Z');
   const now = new Date();
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
@@ -92,39 +93,67 @@ export function IconRequestBox({ iconSlug }: IconRequestBoxProps) {
       setNewRequest("");
       setTimeout(() => setSubmitted(false), 2000);
 
-      // Refetch requests
-      const { data } = await supabase
-        .from("icon_requests")
-        .select("*")
-        .eq("icon_slug", iconSlug)
-        .order("likes", { ascending: false })
-        .limit(5);
+      // Add the new request to local state immediately
+      const newRequestObj = {
+        id: Date.now().toString(),
+        message: newRequest.trim(),
+        likes: 0,
+        created_at: new Date().toISOString(),
+      };
+      setRequests((prev) => [newRequestObj, ...prev]);
 
-      if (data) {
-        setRequests(data);
+      // Try to refetch from database if Supabase is configured
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        const { data } = await supabase
+          .from("icon_requests")
+          .select("*")
+          .eq("icon_slug", iconSlug)
+          .order("likes", { ascending: false })
+          .limit(5);
+
+        if (data) {
+          setRequests(data);
+        }
       }
+    } else {
+      // If database insert fails, still add to local state for demo
+      const newRequestObj = {
+        id: Date.now().toString(),
+        message: newRequest.trim(),
+        likes: 0,
+        created_at: new Date().toISOString(),
+      };
+      setRequests((prev) => [newRequestObj, ...prev]);
+      setSubmitted(true);
+      setNewRequest("");
+      setTimeout(() => setSubmitted(false), 2000);
     }
   };
 
   const handleLike = async (requestId: string) => {
     if (userLikedRequests.includes(requestId)) return;
 
-    const { error } = await supabase.rpc("increment_request_likes", {
-      p_request_id: requestId,
-    });
+    // Update local state immediately for better UX
+    setRequests((prev) =>
+      prev.map((r) =>
+        r.id === requestId ? { ...r, likes: r.likes + 1 } : r
+      )
+    );
 
-    if (!error) {
-      // Update local state
-      setRequests((prev) =>
-        prev.map((r) =>
-          r.id === requestId ? { ...r, likes: r.likes + 1 } : r
-        )
-      );
+    // Update localStorage
+    const newLiked = [...userLikedRequests, requestId];
+    setUserLikedRequests(newLiked);
+    localStorage.setItem("motionix_liked_requests", JSON.stringify(newLiked));
 
-      // Update localStorage
-      const newLiked = [...userLikedRequests, requestId];
-      setUserLikedRequests(newLiked);
-      localStorage.setItem("motionix_liked_requests", JSON.stringify(newLiked));
+    // Try to update database if Supabase is configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      const { error } = await supabase.rpc("increment_request_likes", {
+        p_request_id: requestId,
+      });
+
+      if (error) {
+        console.log("Database update skipped (RPC not configured)");
+      }
     }
   };
 
@@ -353,7 +382,7 @@ export function IconRequestBox({ iconSlug }: IconRequestBoxProps) {
                       }
                     }}
                   >
-                    <span>▲</span>
+                    <span>{isLiked ? "👍" : "👎"}</span>
                     <span>{request.likes}</span>
                   </button>
                 </div>
